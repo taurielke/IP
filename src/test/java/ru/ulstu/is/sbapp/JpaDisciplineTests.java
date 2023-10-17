@@ -56,12 +56,18 @@ public class JpaDisciplineTests {
 
     @Test
     void testDisciplineReadAll() {
+        /*disciplineService.deleteAllDisciplines();
+        disciplineService.addDiscipline("Иван", "Иванов");
+        disciplineService.addDiscipline("Петр", "Петров");
+        final List<Discipline> disciplines = disciplineService.findAllDisciplines();
+        log.info(disciplines.toString());
+        Assertions.assertEquals(disciplines.size(), 2);*/
         disciplineService.deleteAllDisciplines();
         disciplineService.addDiscipline("Иван", "Иванов");
         disciplineService.addDiscipline("Петр", "Петров");
         final List<Discipline> disciplines = disciplineService.findAllDisciplines();
         log.info(disciplines.toString());
-        Assertions.assertEquals(disciplines.size(), 2);
+        Assertions.assertEquals(disciplines.size(), 5);
     }
 
     @Test

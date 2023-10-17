@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+    <div>
+        <a class="btn btn-success button-fixed"
+           th:href="@{/discipline/edit/}">
+            <i class="fa-solid fa-plus"></i> Добавить
+        </a>
+        <a class="btn btn-success button-fixed"
+           th:href="@{/discipline/add/}">
+            <i class="fa-solid fa-plus"></i> Привязать план обучения и преподавателя
+        </a>
+        <a class="btn btn-success button-fixed"
+           th:href="@{/discipline/remove/}">
+            <i class="fa-solid fa-plus"></i> Отвязать план обучения
+        </a>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">ID</th>
+                <th scope="col">Название</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Планы обучения</th>
+                <th scope="col">Преподаватель</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="discipline, iterator: ${disciplines}">
+                <th scope="row" th:text="${iterator.index} + 1"/>
+                <td th:text="${discipline.id}"/>
+                <td th:text="${discipline.name}"/>
+                <td th:text="${discipline.disciplineDescription}" />
+                <td th:text="${discipline.learningPlans}" />
+                <td th:text="${discipline.teacher}" />
+                <td style="width: 10%">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a class="btn btn-warning button-fixed button-sm"
+                           th:href="@{/discipline/edit/{id}(id=${discipline.id})}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i> Изменить
+                        </a>
+                        <button type="button" class="btn btn-danger button-fixed button-sm"
+                                th:attr="onclick=|confirm('Удалить запись?') && document.getElementById('remove-${discipline.id}').click()|">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Удалить
+                        </button>
+                        <button type="button" class="btn btn-danger button-fixed button-sm"
+                                th:attr="onclick=|confirm('Удалить преподавателя?') && document.getElementById('removeT-${discipline.id}').click()|">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Удалить преподавателя
+                        </button>
+                    </div>
+                    <form th:action="@{/discipline/delete/{id}(id=${discipline.id})}" method="post">
+                        <button th:id="'remove-' + ${discipline.id}" type="submit" style="display: none">
+                            Удалить
+                        </button>
+                    </form>
+                    <form th:action="@{/discipline/removeT/{id}(id=${discipline.id})}" method="post">
+                        <button th:id="'removeT-' + ${discipline.id}" type="submit" style="display: none">
+                            Удалить преподавателя
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

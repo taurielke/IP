@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:text="${errors}" class="margin-bottom alert-danger"></div>
+    <form action="#" th:action="@{/discipline/add}" th:object="${disciplineLearningPlanDto}" method="post">
+        <div class="mb-3">
+            <label class="form-label">Дисциплины</label>
+            <select class="form-control" th:field="${disciplineLearningPlanDto.disciplineId}">
+                <option th:each = "discipline, iterator: ${disciplines}" th:value="${discipline.id}"
+                        th:text="${discipline.name}"/>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Планы обучения</label>
+            <select class="form-control" th:field="${disciplineLearningPlanDto.learningPlanId}">
+                <option th:each = "learningPlan, iterator: ${learningPlans}" th:value="${learningPlan.id}"
+                        th:text="${learningPlan.name}"/>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Преподаватели</label>
+            <select class="form-control" th:field="${disciplineLearningPlanDto.teacherId}">
+                <option th:each = "teacher, iterator: ${teachers}" th:value="${teacher.id}"
+                        th:text="${teacher.firstName} + ' ' + ${teacher.lastName}"/>
+            </select>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary button-fixed">Добавить</button>
+            <a class="btn btn-secondary button-fixed" th:href="@{/discipline}">
+                Назад
+            </a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
